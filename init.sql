@@ -1,0 +1,21 @@
+
+CREATE SCHEMA slam;
+
+
+CREATE TABLE SALAM.mahavira (
+    id SERIAL,
+    nama VARCHAR(50),
+    nim VARCHAR(15),
+    jurusan VARCHAR(50)
+);
+
+CREATE ROLE backend_dev LOGIN PASSWORD 'backend';
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA SALAM TO backend_dev;
+
+CREATE ROLE bi_dev LOGIN PASSWORD 'bidev';
+GRANT SELECT ON ALL TABLES IN SCHEMA SALAM TO bi_dev;
+
+CREATE ROLE data_engineer LOGIN PASSWORD 'dataeng';
+GRANT CREATE, USAGE ON SCHEMA SALAM TO data_engineer;
+GRANT ALL PRIVILEGES ON DATABASE salamdb TO data_engineer;
+ 

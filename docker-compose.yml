@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  postgres_ahmad:
+    image: postgres:15
+    container_name: postgres_ahmad
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ifunggul
+      POSTGRES_DB: salamdb
+    ports:
+      - "22135:5432"   
+    volumes:
+      - ./data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - mynetwork
+
+  pgadmin4_ahmad:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin4_ahmad
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "44135:80"   
+    depends_on:
+      - postgres_ahmad
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge
